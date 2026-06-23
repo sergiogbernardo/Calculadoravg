@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import MatrixRain from './components/MatrixRain';
 import TopBar from './components/TopBar';
 import NotepadPanel from './components/NotepadPanel';
 import KeypadPanel from './components/KeypadPanel';
@@ -18,8 +19,10 @@ export default function App() {
   const [tab, setTab] = useState<TabId>('notepad');
 
   return (
-    <div className="min-h-screen bg-grid-glow">
-      <TopBar />
+    <div className="relative min-h-screen bg-grid-glow">
+      <MatrixRain />
+      <div className="relative z-10">
+        <TopBar />
 
       <nav className="sticky top-[57px] z-10 border-b border-emerald-500/10 bg-black/40 backdrop-blur-md">
         <div className="mx-auto flex max-w-5xl gap-1 overflow-x-auto px-4 lg:px-6">
@@ -47,9 +50,10 @@ export default function App() {
         {tab === 'plot' && <PlotPanel />}
       </main>
 
-      <footer className="border-t border-emerald-500/10 py-6 text-center font-mono text-xs text-slate-600">
-        © 2026 Sergio Bernardo
-      </footer>
+        <footer className="border-t border-emerald-500/10 py-6 text-center font-mono text-xs text-slate-600">
+          © 2026 Sergio Bernardo
+        </footer>
+      </div>
     </div>
   );
 }
