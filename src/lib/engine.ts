@@ -1,8 +1,99 @@
-import { all, create, type MathJsInstance } from 'mathjs';
+import {
+  create,
+  // Parser / evaluation infrastructure
+  compileDependencies,
+  evaluateDependencies,
+  formatDependencies,
+  parserDependencies,
+  // Symbolic algebra
+  derivativeDependencies,
+  simplifyDependencies,
+  // Units
+  createUnitDependencies,
+  unitDependencies,
+  toDependencies,
+  // Constants
+  piDependencies,
+  eDependencies,
+  tauDependencies,
+  // Functions a calculator needs (evaluateDependencies stays intentionally
+  // minimal, so the ones we want to expose are pulled in explicitly)
+  sqrtDependencies,
+  cbrtDependencies,
+  absDependencies,
+  expDependencies,
+  logDependencies,
+  log10Dependencies,
+  log2Dependencies,
+  factorialDependencies,
+  gcdDependencies,
+  lcmDependencies,
+  modDependencies,
+  roundDependencies,
+  floorDependencies,
+  ceilDependencies,
+  minDependencies,
+  maxDependencies,
+  sinDependencies,
+  cosDependencies,
+  tanDependencies,
+  asinDependencies,
+  acosDependencies,
+  atanDependencies,
+  atan2Dependencies,
+  sinhDependencies,
+  coshDependencies,
+  tanhDependencies,
+} from 'mathjs';
 
-// One configured math.js instance powers every mode: numeric eval, units,
-// user-defined variables/functions and symbolic algebra (derivative/simplify).
-export const math: MathJsInstance = create(all, { number: 'number' });
+// Build a math.js instance from only the dependency bundles we use, instead of
+// `all`. This keeps the expression parser, units and symbolic algebra while
+// dropping everything we never touch (matrix decomposition, statistics,
+// combinatorics, bitwise, set operations, special functions, …) — roughly
+// halving the bundle versus `create(all)`.
+export const math = create(
+  {
+    ...evaluateDependencies,
+    ...compileDependencies,
+    ...parserDependencies,
+    ...formatDependencies,
+    ...derivativeDependencies,
+    ...simplifyDependencies,
+    ...createUnitDependencies,
+    ...unitDependencies,
+    ...toDependencies,
+    ...piDependencies,
+    ...eDependencies,
+    ...tauDependencies,
+    ...sqrtDependencies,
+    ...cbrtDependencies,
+    ...absDependencies,
+    ...expDependencies,
+    ...logDependencies,
+    ...log10Dependencies,
+    ...log2Dependencies,
+    ...factorialDependencies,
+    ...gcdDependencies,
+    ...lcmDependencies,
+    ...modDependencies,
+    ...roundDependencies,
+    ...floorDependencies,
+    ...ceilDependencies,
+    ...minDependencies,
+    ...maxDependencies,
+    ...sinDependencies,
+    ...cosDependencies,
+    ...tanDependencies,
+    ...asinDependencies,
+    ...acosDependencies,
+    ...atanDependencies,
+    ...atan2Dependencies,
+    ...sinhDependencies,
+    ...coshDependencies,
+    ...tanhDependencies,
+  },
+  { number: 'number' },
+);
 
 // math.js knows `mile`, `hour`, `km`, etc. but not the common abbreviation
 // `mph`; define it so expressions like "60 mph to m/s" work as expected.
