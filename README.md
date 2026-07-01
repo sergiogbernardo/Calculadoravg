@@ -4,7 +4,7 @@ A calculator that thinks in lines. The GitHub Pages version of the local
 `calculadora` project, rebuilt around a **notepad** powered by
 [math.js](https://mathjs.org/) — everything runs in the browser, no backend.
 
-Part of the [project hub](https://sergiogbernardo.github.io/).
+Part of the [project hub](https://sabion.io/).
 
 ## Modes
 
